@@ -1,6 +1,12 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BsFacebook, BsGithub, BsInstagram, BsLinkedin, BsTwitter,} from "react-icons/bs"
+import {
+  BsFacebook,
+  BsGithub,
+  BsInstagram,
+  BsLinkedin,
+  BsTwitter,
+} from "react-icons/bs";
 export default function FooterCom() {
   return (
     <Footer container className="border border-t-8 border-teal-500">
@@ -47,11 +53,7 @@ export default function FooterCom() {
             <div>
               <Footer.Title title="FLegal" />
               <Footer.LinkGroup col>
-                <Footer.Link
-                  href="#"
-                >
-                  Privacy Policy
-                </Footer.Link>
+                <Footer.Link href="#">Privacy Policy</Footer.Link>
                 <Footer.Link href="#">Term &amp; Conditions</Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -59,15 +61,27 @@ export default function FooterCom() {
         </div>
         <Footer.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-            <Footer.Copyright href="#" by="Rashid blog" year={new Date().getFullYear()} />
-            <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-                <Footer.Icon href="https://www.facebook.com/anurashidc/" icon={BsFacebook} />
-                <Footer.Icon href="https://www.instagram.com/__ras.hid/" icon={BsInstagram} />
-                <Footer.Icon href="https://www.linkedin.com/in/rashid-c/" icon={BsLinkedin} />
-                <Footer.Icon href="https://github.com/Rashid-C" icon={BsGithub} />
-                <Footer.Icon href="#" icon={BsTwitter} />
-
-            </div>
+          <Footer.Copyright
+            href="#"
+            by="Rashid blog"
+            year={new Date().getFullYear()}
+          />
+          <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
+            <Footer.Icon
+              href="https://www.facebook.com/anurashidc/"
+              icon={BsFacebook}
+            />
+            <Footer.Icon
+              href="https://www.instagram.com/__ras.hid/"
+              icon={BsInstagram}
+            />
+            <Footer.Icon
+              href="https://www.linkedin.com/in/rashid-c/"
+              icon={BsLinkedin}
+            />
+            <Footer.Icon href="https://github.com/Rashid-C" icon={BsGithub} />
+            <Footer.Icon href="#" icon={BsTwitter} />
+          </div>
         </div>
       </div>
     </Footer>
