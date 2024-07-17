@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-
   if (
     !username ||
     !email ||
@@ -76,13 +75,9 @@ export const google = async (req, res, next) => {
         Math.random().toString(36).slice(-8);
       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
       const newUser = new User({
-        username: name
-          .toLowerCase()
-          .split(' ')
-          .join('')+
-          Math.random()
-          .toString(9)
-          .slice(-4),
+        username:
+          name.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
         email,
         password: hashedPassword,
         profilePicture: googlePhotoUrl,
