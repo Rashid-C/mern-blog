@@ -26,3 +26,44 @@ export const create = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getposts = async (req, res, next) => {
+  try {
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 9;
+    const sortDirection = req.query.order === "asc" ? 1 : -1;
+    const posts = await Post.find({
+      ...(req.query.userId && { userId: req.query.userId }),
+      ...(req.query.category && { category: req.query.category }),
+      ...(req.query.slug && { slug: req.query.slug }) /**This is Noded point */,
+      ...(req.query.postId && { _id: req.query.postId }),
+      ...(req.query.searchTeam && {
+        $or: [
+          { title: { $regex: req.query.searchTeam, $option: "i" } },
+          { content: { $regex: req.query.searchTeam, $option: "i" } },
+        ],
+      }),
+    })
+      .sort({ updatedAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
+
+    const totalPosts = await Post.countDocuments();
+
+    const now = new Date();
+
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+
+    const lastMonthPosts = await Post.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+
+    res.status(200).json({ posts, totalPosts, lastMonthPosts });
+  } catch (error) {
+    next(error);
+  }
+};

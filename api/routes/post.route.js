@@ -1,11 +1,10 @@
-import express from 'express'
-import { verifyToken } from '../utils/verifyUser.js'
-import { create } from '../controllers/post.controller.js'
+import express from "express";
+import { verifyToken } from "../utils/verifyUser.js";
+import { create, getposts } from "../controllers/post.controller.js";
 
-const router=express.Router()
+const router = express.Router();
 
+router.post("/create", verifyToken, create);
+router.get("/getposts", getposts);
 
-router.post('/create',verifyToken,create)
-
-
-export default router
+export default router;
