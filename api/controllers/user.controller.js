@@ -76,7 +76,7 @@ export const signout = (req, res, next) => {
   }
 };
 
-export const getusers = async (req, res, next) => {
+export const getUsers = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to see all users"));
   }
@@ -99,11 +99,8 @@ export const getusers = async (req, res, next) => {
 
     const now = new Date();
 
-    const oneMonthAgo = new Date(
-      now.getFullYear(),
-      now.getMonth() - 1,
-      now.getDate()
-    );
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(now.getMonth() - 1);
 
     const lastMonthUsers = await User.countDocuments({
       createdAt: { $gte: oneMonthAgo },
