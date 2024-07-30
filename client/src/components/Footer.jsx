@@ -72,7 +72,7 @@ export default function FooterCom() {
               icon={BsFacebook}
             />
             <Footer.Icon
-              href="https://www.instagram.com/__ras.hid/"
+              href="https://www.instagram.com/rashid__rayhan/"
               icon={BsInstagram}
             />
             <Footer.Icon
