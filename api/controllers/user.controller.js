@@ -1,8 +1,9 @@
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import User from "../models/user.model.js";
+
 export const test = (req, res) => {
-  res.json({ message: "API is working" });
+  res.json({ message: "API is working!" });
 };
 
 export const updateUser = async (req, res, next) => {
@@ -59,7 +60,7 @@ export const deleteUser = async (req, res, next) => {
   }
   try {
     await User.findByIdAndDelete(req.params.userId);
-    res.status(200).json("User  has been deleted");
+    res.status(200).json("User has been deleted");
   } catch (error) {
     next(error);
   }
@@ -90,7 +91,7 @@ export const getUsers = async (req, res, next) => {
       .skip(startIndex)
       .limit(limit);
 
-    const userWithoutPassword = users.map((user) => {
+    const usersWithoutPassword = users.map((user) => {
       const { password, ...rest } = user._doc;
       return rest;
     });
@@ -99,15 +100,17 @@ export const getUsers = async (req, res, next) => {
 
     const now = new Date();
 
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(now.getMonth() - 1);
-
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
     const lastMonthUsers = await User.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
 
     res.status(200).json({
-      users: userWithoutPassword,
+      users: usersWithoutPassword,
       totalUsers,
       lastMonthUsers,
     });
@@ -120,7 +123,7 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.userId);
     if (!user) {
-      return next(errorHandler(404, "user not found"));
+      return next(errorHandler(404, "User not found"));
     }
     const { password, ...rest } = user._doc;
     res.status(200).json(rest);
